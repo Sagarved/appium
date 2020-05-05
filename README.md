@@ -1,2 +1,2 @@
 # appium
-Appium test with android simmulator
+Appium test tutorial with android simmulator
