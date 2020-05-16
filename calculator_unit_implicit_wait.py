@@ -5,11 +5,20 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-xpath_base = '//android.widget.LinearLayout[@content-desc="Numbers and basic operations"]/android.view.ViewGroup[1]/' \
-             'android.widget.Button'
-xpath_result ='/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/' \
-              'android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/' \
-              'android.widget.LinearLayout/android.widget.LinearLayout/android.widget.TextView'
+#xpath_base = '//android.widget.LinearLayout[@content-desc="Numbers and basic operations"]/android.view.ViewGroup[1]/' \
+#             'android.widget.Button'
+
+xpath_base ='/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/' \
+            'android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/' \
+            'android.widget.LinearLayout/androidx.slidingpanelayout.widget.SlidingPaneLayout/' \
+            'android.widget.LinearLayout/android.view.ViewGroup[1]/android.widget.Button'
+
+
+xpath_result ='/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/' \
+              'android.widget.FrameLayout/android.widget.LinearLayout/' \
+              'android.widget.FrameLayout/android.view.ViewGroup/android.widget.LinearLayout/' \
+              'android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.TextView'
+
 
 
 
@@ -69,9 +78,8 @@ class CalcTest(unittest.TestCase):
         multi = self.elm_xpath(xpath_result)
         #print(sum.text)
         #time.sleep(5)
-        result = self.elm_id_click('equals')
-
         self.assertEqual(multi.text, '20')
+        result = self.elm_id_click('equals')
 
     def test_divide(self):
         """4 divide 2 and verifying result"""
@@ -82,8 +90,8 @@ class CalcTest(unittest.TestCase):
         select_AB = self.elm_id_click('divide', 5)
         number_5 = self.elm_xpath_click(xpath_2)
         remainder = self.elm_xpath(xpath_result)
-        result = self.elm_id_click('equals')
         self.assertEqual(remainder.text, '2')
+        result = self.elm_id_click('equals')
 
     def test_sum(self):
         """4 sum 2 and verifying result"""
@@ -94,8 +102,8 @@ class CalcTest(unittest.TestCase):
         select_AB = self.elm_id_click('plus', 5)
         number_5 = self.elm_xpath_click(xpath_2)
         sum = self.elm_xpath(xpath_result)
-        result = self.elm_id_click('equals')
         self.assertEqual(sum.text, '6')
+        result = self.elm_id_click('equals')
 
     def test_minus(self):
         """4 minus 2 and verifying result"""
@@ -106,8 +114,9 @@ class CalcTest(unittest.TestCase):
         select_AB = self.elm_id_click('minus', 5)
         number_5 = self.elm_xpath_click(xpath_2)
         minus = self.elm_xpath(xpath_result)
-        result = self.elm_id_click('equals')
         self.assertEqual(minus.text, '2')
+        result = self.elm_id_click('equals')
+
     @classmethod
     def tearDownClass(self):
         self.driver.quit()
